@@ -1,0 +1,25 @@
+.exit
+await box.store(42);
+await box.store(980);
+await box.retrieve();
+await box.store(42);
+await box.save(42);
+const box = await Box.attach('0xe5eee6eBd004333AD5a9d31B5E37ACa2D63493aF');
+const Box = await ethers.getContractFactory('Box');
+.exit
+(await ethers.provider.getBalance(accounts[0])).toString()
+accounts = await ethers.provider.listAccounts()
+(await ethers.provider.getBalance(accounts[0])).toString()
+.exit
+(await ethers.provider.getBalance(accounts[0])).toString()
+accounts = await ethers.provider.listAccounts()
+.exit
+cls
+clear
+await box.w();
+await box.retrieve();
+await box.store();
+await box.retrieve();
+await box.store(42);
+const box = await Box.attach('0x5FbDB2315678afecb367f032d93F642f64180aa3');
+const Box = await ethers.getContractFactory('Box');
