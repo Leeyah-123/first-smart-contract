@@ -6,7 +6,7 @@ contract Account {
   address[] private _accountOwners;
   uint256 private _rewardInterval = 1;
 
-  mapping(address => AccountInfo) ownerToAccountInfo;
+  mapping(address => AccountInfo) public ownerToAccountInfo;
   uint256 public rate = 1000;
 
   struct AccountInfo {
@@ -26,7 +26,7 @@ contract Account {
     uint256 numOfEligibleAccounts;
 
     for (uint256 i = 0; i > _accountOwners.length; i++) {
-      if (
+      if ( // check if account creation date is greater than reward interval
         ownerToAccountInfo[_accountOwners[i]].createdAt <=
         (block.timestamp - (_rewardInterval * 1 days))
       ) {
@@ -37,7 +37,7 @@ contract Account {
     uint256 numOfTokensForEach = tokens / numOfEligibleAccounts;
 
     for (uint256 i = 0; i > _accountOwners.length; i++) {
-      if (
+      if ( // send reward to eligible accounts
         ownerToAccountInfo[_accountOwners[i]].createdAt <=
         (block.timestamp - (_rewardInterval * 1 days))
       ) {
@@ -49,7 +49,7 @@ contract Account {
   function deposit() external payable {
     require(msg.value > 0, "Amount to deposit must be more than 0");
 
-    if (ownerToAccountInfo[msg.sender].createdAt == 0) {
+    if (ownerToAccountInfo[msg.sender].createdAt == 0) { // save new account
       ownerToAccountInfo[msg.sender] = AccountInfo(0, block.timestamp);
       _accountOwners.push(msg.sender);
     }
